@@ -31,10 +31,11 @@ body {
   border-top: 1px solid #e5e5e5;
 }
 
-/*added margin for bookmarks cards*/
+/* added margin for bookmarks cards */
 .card-body {
   margin-bottom: 3em;
 }
+
 /* margin between btns */
 .btn-danger {
   margin-left: 10px;
