@@ -1,19 +1,18 @@
-//listen for form submit
+//listen if form is submited
 document.getElementById("myForm").addEventListener("submit", saveBookmark);
-//array of bookmarks;
-let bookmarks;
-//get item by key from local storage and parse it to string
+//create array of bokmarks;
+let bookmarks = [];
+//get item by the key from local storage and parse it to string
 function getLocalStorage(itemKey){
 	return JSON.parse(localStorage.getItem(itemKey));
 }
-//set stringifyed item to local storage
+//set stringifyed item to local storage by the key
 function setLocalStorage(itemKey, item){
 	localStorage.setItem(itemKey, JSON.stringify(item));
 }
-
-//save bookmark
-function saveBookmark() {
-	//get form values
+//function for saving bookmarks 
+function saveBookmark(e) {
+	//get users input values
 	let siteName = document.getElementById("siteName").value;
 	let siteUrl = document.getElementById("siteUrl").value;
 	//check if http protocol is added, to prevent browser reading url as local files
@@ -26,14 +25,13 @@ function saveBookmark() {
 		url: siteUrl
 	}
 
- 	//test if bookmarks is null
+ 	//test if bookmarks arr is null
 	if (localStorage.getItem("bookmarks") === null) {
 		//init array
 		bookmarks = [];
 		//push item in array
 		bookmarks.push(bookmark);
-		//set array of bookmarks in local storage
-		//localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+		//set array of bookmarks to local storage
 		setLocalStorage("bookmarks", bookmarks);
 
 	} else {
@@ -44,23 +42,26 @@ function saveBookmark() {
 		//set refreshed array of bookmarks back to local storage
 		setLocalStorage("bookmarks", bookmarks);
 	}
-	//re-fetch so shown data is actual
+	//re-fetch so shown data is actual without reloading the page
 	fetchBookmarks();
-	//to clear fields after submit btn
+	//to clear input fields after user created bookmark
 	document.getElementById("siteName").value = "";
 	document.getElementById("siteUrl").value = "";
+
+	//uncomment function below to use console.log() as debugger
+	//e.preventDefault(e);
 };
 
 //delete boookmarks function
 function deleteBookmark(url){
-	//get element by key (array of bookmarks)
+	//get element by key with the passed argument url
 	bookmarks = getLocalStorage("bookmarks");
 	//loop through every single item in arr
 	let i;
 	for (i = 0; i < bookmarks.length; i++) {
-		// if url property of any element will match url passed as a parameter
+		// if url value of any element will match url passed as a parameter
 		if(bookmarks[i].url === url){
-			//remove one element under 'i' index
+			//remove one element
 			bookmarks.splice(i, 1);
 		}
 	}
