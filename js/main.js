@@ -86,7 +86,7 @@ function fetchBookmarks(){
 		for(i = 0; i < bookmarks.length; i++){
 			let name = bookmarks[i].name;
 			let url = bookmarks[i].url;
-			//bind the output
+			//build an output
 			bookmarksResults.innerHTML += '<div class="card bg-light text-dark card-body">' +
 											'<h3>' + name + ": " + 
 											'<a class="btn btn-secondary" target="_blank" href="'+url+'">' + "Visit" + '</a>' + 
